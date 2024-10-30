@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/widgets/booklist_element.dart';
+import 'package:bookshelf_app/widgets/booklist_states/have_book.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -25,13 +27,23 @@ class _MyBookPageState extends State<MyBookPage> {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Мои заказы",
+              "Мои книги",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
+
+          //Add list builder
           BookListElement(
             bookName: "451 градус по фаренгейту",
             authorName: "Рей Бредбери",
+            rate: "4.6",
+            rightWidget: HaveBook(date: "29.10.2024",),
+          ),
+          BookListElement(
+            bookName: "Жай пример",
+            authorName: "Хто я",
+            rate: "2.8",
+            rightWidget: HaveBook(date: "29.10.2024",),
           ),
         ],
       ),
@@ -39,98 +51,4 @@ class _MyBookPageState extends State<MyBookPage> {
   }
 }
 
-class BookListElement extends StatelessWidget {
-  final String bookName;
-  final String authorName;
 
-  const BookListElement(
-      {required this.bookName, required this.authorName, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    String finalName =
-        bookName.length > 20 ? bookName.substring(0, 20) + ".." : bookName;
-
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //IMAGE BOOK
-              Container(
-                height: 130,
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/book.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              //TEXT COLLUMN
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      width: 95,
-                      child: Text(
-                        finalName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      )),
-                  Container(
-                      width: 95,
-                      child: Text(
-                        authorName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: AppColors.secondaryTextColor,
-                        ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star_rounded,
-                        color: Colors.yellow[600],
-                      ),
-                      Text(
-                        "4.7",
-                        style: TextStyle(fontSize: 16),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.cancel_outlined),
-                      Text("Нет в наличии")
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10,),
-        Center(
-            child: Container(
-                width: 320,
-                child: Divider(
-                  color: Colors.grey.shade300,
-                ))),
-      ],
-    );
-  }
-}

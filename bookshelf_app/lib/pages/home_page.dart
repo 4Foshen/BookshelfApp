@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bookshelf_app/pages/book_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/widgets/custom_card.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
@@ -226,35 +227,45 @@ class BookContainer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 170,
-          width: 110,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            image: DecorationImage(
-              image: AssetImage("assets/img/book.png"),
-              fit: BoxFit.cover,
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookPage(),
+              ),
+            );
+          },
+          child: Container(
+            height: 170,
+            width: 110,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              image: DecorationImage(
+                image: AssetImage("assets/img/book.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                  right: 0,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add_circle,
-                        color: AppColors.primaryColor,
-                        shadows: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.7),
-                            spreadRadius: 5,
-                            blurRadius: 10,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      )))
-            ],
+            child: Stack(
+              children: [
+                Positioned(
+                    right: 0,
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.add_circle,
+                          color: AppColors.primaryColor,
+                          shadows: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.7),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        )))
+              ],
+            ),
           ),
         ),
         Text(
