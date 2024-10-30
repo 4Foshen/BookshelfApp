@@ -5,5 +5,6 @@ class AppColors {
   static final Color secondaryColor = Color(0xFF1500FB);
   static final Color backgroundColor = Colors.white;
   static final Color textColor = Colors.black;
+  static final Color secondaryTextColor = Color(0xFF929292);
 
 }

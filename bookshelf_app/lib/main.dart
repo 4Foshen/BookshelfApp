@@ -1,4 +1,4 @@
-import 'package:bookshelf_app/pages/home_page.dart';
+import 'package:bookshelf_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,9 +10,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: ThemeData(
+        fontFamily: 'Manrope'
+      ),
+      home: MainPage(),
     );
   }
 }
