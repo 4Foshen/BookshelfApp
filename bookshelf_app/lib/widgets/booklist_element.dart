@@ -1,24 +1,21 @@
 import 'package:bookshelf_app/pages/book_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/book.dart';
 import 'package:flutter/material.dart';
 
 class BookListElement extends StatelessWidget {
-  final String bookName;
-  final String authorName;
-  final String rate;
+  final Book bookInfo;
   final Widget rightWidget;
 
   const BookListElement(
-      {required this.rate,
-      required this.bookName,
-      required this.authorName,
+      {required this.bookInfo,
       required this.rightWidget,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     String finalName =
-        bookName.length > 20 ? bookName.substring(0, 19) + ".." : bookName;
+        bookInfo.bookName.length > 20 ? bookInfo.bookName.substring(0, 19) + ".." : bookInfo.bookName;
 
     return Column(
       children: [
@@ -33,7 +30,7 @@ class BookListElement extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookPage(),
+                      builder: (context) => BookPage(bookInfo: bookInfo,),
                     ),
                   );
                 },
@@ -65,7 +62,7 @@ class BookListElement extends StatelessWidget {
                   Container(
                       width: 95,
                       child: Text(
-                        authorName,
+                        bookInfo.author,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -82,7 +79,7 @@ class BookListElement extends StatelessWidget {
                         color: Colors.yellow[600],
                       ),
                       Text(
-                        rate,
+                        bookInfo.rating.toString(),
                         style: TextStyle(fontSize: 16),
                       )
                     ],

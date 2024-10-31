@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookshelf_app/pages/book_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/widgets/custom_card.dart';
+import 'package:bookshelf_app/system/book.dart';
+import 'package:bookshelf_app/system/event.dart';
+import 'package:bookshelf_app/widgets/event_card.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +18,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //When Backend ready get from it
-  final List<Map<String, String>> cardData = [
-    {
-      'imagePath': 'assets/img/example.jpg',
-      'topText': '29.10.2024',
-      'bottomText': 'Акция \"Читающая нация\"',
-    },
-    {
-      'imagePath': 'assets/img/example.jpg',
-      'topText': 'Дата 2',
-      'bottomText': 'Название 2',
-    },
-    {
-      'imagePath': 'assets/img/example.jpg',
-      'topText': 'Дата 3',
-      'bottomText': 'Название 3',
-    },
+  List<Event> events = [
+    Event(
+        eventName: "Акция \"Читающая нация\"",
+        description: "Описание",
+        imagePath: "assets/img/example.jpg",
+        date: "31.10.2024"),
+    Event(
+        eventName: "Акция \"Обмен книг\"",
+        description: "Описание описание описание",
+        imagePath: "assets/img/example.jpg",
+        date: "01.11.2024"),
   ];
 
   @override
@@ -66,19 +63,17 @@ class _HomePageState extends State<HomePage> {
                   aspectRatio: 16 / 9,
                   viewportFraction: 0.8,
                 ),
-                items: cardData.map((data) {
+                items: events.map((data) {
                   return Builder(
                     builder: (BuildContext context) {
                       return EventCardWidget(
-                        assetImagePath: data['imagePath']!,
-                        dateText: data['topText']!,
-                        eventText: data['bottomText']!,
+                        eventInfo: data,
                         buttonText: "Принять участие",
                         onButtonPressed: () {
-                          print('${data['topText']} button pressed');
+                          print('${data} button pressed');
                         },
                         onIconPressed: () {
-                          print('${data['topText']} icon pressed');
+                          print('${data} icon pressed');
                         },
                       );
                     },
@@ -112,6 +107,8 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
+
+            //POPULAR FROM LIBRARY
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
@@ -128,19 +125,42 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 BookContainer(
-                  name: "451 Градус по фаренгейту",
-                  genre: "роман",
+                  bookInfo: Book(
+                      bookName: "451 Градус по фаренгейту",
+                      author: "Рэй Брэдбери",
+                      description: "Описание",
+                      genre: "роман",
+                      imagePath: "assets/img/book.png",
+                      rating: 4.6,
+                      isAvailable: true,
+                      isAwaiting: false),
                 ),
                 BookContainer(
-                  name: "Проверка",
-                  genre: "семён",
+                  bookInfo: Book(
+                      bookName: "451 Градус по фаренгейту",
+                      author: "Рэй Брэдбери",
+                      description: "Описание",
+                      genre: "роман",
+                      imagePath: "assets/img/book.png",
+                      rating: 4.6,
+                      isAvailable: true,
+                      isAwaiting: false),
                 ),
                 BookContainer(
-                  name: "Про",
-                  genre: "антон",
+                  bookInfo: Book(
+                      bookName: "451 Градус по фаренгейту",
+                      author: "Рэй Брэдбери",
+                      description: "Описание",
+                      genre: "роман",
+                      imagePath: "assets/img/book.png",
+                      rating: 4.6,
+                      isAvailable: true,
+                      isAwaiting: false),
                 ),
               ],
             ),
+
+            //ALL VARIANTS
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: InkWell(
@@ -211,18 +231,18 @@ class IconContainer extends StatelessWidget {
 }
 
 class BookContainer extends StatelessWidget {
-  final String name;
-  final String genre;
+  final Book bookInfo;
 
   const BookContainer({
     Key? key,
-    required this.name,
-    required this.genre,
+    required this.bookInfo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String displayName = name.length > 8 ? name.substring(0, 8) + ".." : name;
+    String displayName = bookInfo.bookName.length > 8
+        ? bookInfo.bookName.substring(0, 8) + ".."
+        : bookInfo.bookName;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +252,9 @@ class BookContainer extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookPage(),
+                builder: (context) => BookPage(
+                  bookInfo: bookInfo,
+                ),
               ),
             );
           },
@@ -251,7 +273,9 @@ class BookContainer extends StatelessWidget {
                 Positioned(
                     right: 0,
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //Add to korzina emae
+                        },
                         icon: Icon(
                           Icons.add_circle,
                           color: AppColors.primaryColor,
@@ -276,7 +300,7 @@ class BookContainer extends StatelessWidget {
           ),
         ),
         Text(
-          genre,
+          bookInfo.genre,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
