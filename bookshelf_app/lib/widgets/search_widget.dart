@@ -3,19 +3,29 @@ import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
   final String hintText;
+  final IconButton iconButton;
+  final double width;
+  final double height;
+  final double spacing;
 
-  const SearchWidget({required this.hintText, super.key});
+  const SearchWidget(
+      {required this.hintText,
+      required this.iconButton,
+      this.width = 320,
+      this.height = 50,
+      this.spacing = 20,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         SizedBox(
-          width: 20,
+          width: spacing,
         ),
         SizedBox(
-          width: 320,
-          height: 60,
+          width: width,
+          height: height,
           child: TextField(
             decoration: InputDecoration(
               hintText: hintText,
@@ -41,11 +51,7 @@ class SearchWidget extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(
-            onPressed: () {
-              //on button press
-            },
-            icon: Icon(Icons.person_outline_rounded, size: 36))
+        iconButton,
       ],
     );
   }

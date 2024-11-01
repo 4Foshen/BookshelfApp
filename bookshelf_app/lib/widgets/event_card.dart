@@ -1,3 +1,4 @@
+import 'package:bookshelf_app/pages/event_info.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/event.dart';
 import 'package:flutter/material.dart';
@@ -5,15 +6,11 @@ import 'package:flutter/material.dart';
 class EventCardWidget extends StatelessWidget {
   final Event eventInfo;
   final String buttonText;
-  final VoidCallback onButtonPressed;
-  final VoidCallback onIconPressed;
 
   const EventCardWidget({
     Key? key,
     required this.eventInfo,
     required this.buttonText,
-    required this.onButtonPressed,
-    required this.onIconPressed
   }) : super(key: key);
 
   @override
@@ -85,7 +82,9 @@ class EventCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: onButtonPressed,
+                  onPressed: () {
+                    //ZAPISAT NA MEROPRIYATIE
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     shape: RoundedRectangleBorder(
@@ -94,11 +93,18 @@ class EventCardWidget extends StatelessWidget {
                   ),
                   child: Text(
                     buttonText,
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                 ),
                 IconButton(
-                  onPressed: onIconPressed,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EventInfo(event: eventInfo),
+                        ));
+                  },
                   icon: Icon(Icons.arrow_forward),
                   color: Colors.white,
                 ),
@@ -111,19 +117,14 @@ class EventCardWidget extends StatelessWidget {
   }
 }
 
-
 class EventCardForList extends StatelessWidget {
   final Event eventInfo;
   final String buttonText;
-  final VoidCallback onButtonPressed;
-  final VoidCallback onIconPressed;
 
   const EventCardForList({
     Key? key,
     required this.eventInfo,
     required this.buttonText,
-    required this.onButtonPressed,
-    required this.onIconPressed,
   }) : super(key: key);
 
   @override
@@ -197,7 +198,15 @@ class EventCardForList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: onButtonPressed,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EventInfo(
+                                event: eventInfo,
+                              ),
+                            ));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
@@ -206,7 +215,8 @@ class EventCardForList extends StatelessWidget {
                       ),
                       child: Text(
                         buttonText,
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -215,7 +225,9 @@ class EventCardForList extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

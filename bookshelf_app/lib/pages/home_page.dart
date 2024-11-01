@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookshelf_app/pages/book_page.dart';
+import 'package:bookshelf_app/pages/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/system/event.dart';
@@ -21,14 +22,16 @@ class _HomePageState extends State<HomePage> {
   List<Event> events = [
     Event(
         eventName: "Акция \"Читающая нация\"",
-        description: "Описание",
+        description: "В современном мире, где технологии играют важную роль в жизни каждого, чтение книг остается важным элементом культуры и образования. Мероприятие «Читающая нация» направлено на популяризацию чтения как важного инструмента развития личности и общества в целом.",
         imagePath: "assets/img/example.jpg",
-        date: "31.10.2024"),
+        date: "31.10.2024",
+        adress: "Караганда, ул. Саттара Ерубаева, 44"),
     Event(
         eventName: "Акция \"Обмен книг\"",
         description: "Описание описание описание",
         imagePath: "assets/img/example.jpg",
-        date: "01.11.2024"),
+        date: "01.11.2024",
+        adress: "Караганда, ул. Пушкинская 52"),
   ];
 
   @override
@@ -43,7 +46,11 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             //TextField
-            SearchWidget(hintText: "Поиск по приложению"),
+            SearchWidget(hintText: "Поиск по приложению", iconButton: IconButton(
+            onPressed: () {
+              //on button press
+            },
+            icon: Icon(Icons.person_outline_rounded, size: 36)),),
 
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -69,12 +76,6 @@ class _HomePageState extends State<HomePage> {
                       return EventCardWidget(
                         eventInfo: data,
                         buttonText: "Принять участие",
-                        onButtonPressed: () {
-                          print('${data} button pressed');
-                        },
-                        onIconPressed: () {
-                          print('${data} icon pressed');
-                        },
                       );
                     },
                   );
@@ -93,7 +94,9 @@ class _HomePageState extends State<HomePage> {
                   assetPath: "assets/svg/catalog.svg",
                   text: "Каталог",
                   height: 20,
-                  onButtonPressed: () {},
+                  onButtonPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => CatalogPage(),));
+                  },
                 ),
                 IconContainer(
                   assetPath: "assets/svg/clubs.svg",
@@ -120,6 +123,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+            //CHANGE AFTER BACKEND
             //BookList
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -130,6 +134,7 @@ class _HomePageState extends State<HomePage> {
                       author: "Рэй Брэдбери",
                       description: "Описание",
                       genre: "роман",
+                      term: "30.10.2024",
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
                       isAvailable: true,
@@ -140,6 +145,7 @@ class _HomePageState extends State<HomePage> {
                       bookName: "451 Градус по фаренгейту",
                       author: "Рэй Брэдбери",
                       description: "Описание",
+                      term: "01.11.2024",
                       genre: "роман",
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
@@ -152,6 +158,7 @@ class _HomePageState extends State<HomePage> {
                       author: "Рэй Брэдбери",
                       description: "Описание",
                       genre: "роман",
+                      term: "01.11.2024",
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
                       isAvailable: true,

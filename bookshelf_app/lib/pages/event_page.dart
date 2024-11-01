@@ -16,14 +16,17 @@ class _EventPageState extends State<EventPage> {
   List<Event> events = [
     Event(
         eventName: "Акция \"Читающая нация\"",
-        description: "Описание",
+        description:
+            "В современном мире, где технологии играют важную роль в жизни каждого, чтение книг остается важным элементом культуры и образования. Мероприятие «Читающая нация» направлено на популяризацию чтения как важного инструмента развития личности и общества в целом.",
         imagePath: "assets/img/example.jpg",
-        date: "31.10.2024"),
+        date: "31.10.2024",
+        adress: "Караганда, ул. Саттара Ерубаева, 44"),
     Event(
         eventName: "Акция \"Обмен книг\"",
         description: "Описание описание описание",
         imagePath: "assets/img/example.jpg",
-        date: "01.11.2024"),
+        date: "01.11.2024",
+        adress: "Караганда, ул. Пушкинская 52"),
   ];
 
   @override
@@ -36,7 +39,16 @@ class _EventPageState extends State<EventPage> {
           SizedBox(
             height: 20,
           ),
-          SearchWidget(hintText: "Поиск по мероприятиям"),
+          SearchWidget(
+            hintText: "Поиск по мероприятиям",
+            iconButton: IconButton(
+                onPressed: () {
+                  //on button press
+                },
+                icon: Icon(Icons.person_outline_rounded, size: 36)),
+          ),
+
+          //MY EVENTS BUTTON HERE
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
@@ -87,10 +99,9 @@ class _EventPageState extends State<EventPage> {
               itemCount: events.length,
               itemBuilder: (context, index) {
                 return EventCardForList(
-                    eventInfo: events[index],
-                    buttonText: "Подробнее",
-                    onButtonPressed: () {},
-                    onIconPressed: () {},);
+                  eventInfo: events[index],
+                  buttonText: "Подробнее",
+                );
               },
             ),
           )

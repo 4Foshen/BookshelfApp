@@ -19,8 +19,10 @@ class _MyBookPageState extends State<MyBookPage> {
     Book(
         bookName: "451 Градус по фаренгейту",
         author: "Рэй Брэдбери",
-        description: "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери, изданный в 1953 году. Роман описывает американское общество близкого будущего, в котором книги находятся под запретом. «Пожарные», к числу которых принадлежит и главный герой Гай Монтэг, сжигают любые найденные книги.\nВ ходе романа Монтэг разочаровывается в идеалах общества, частью которого он является, становится изгоем и присоединяется к небольшой подпольной группе маргиналов, сторонники которой заучивают тексты книг, чтобы спасти их для потомков.",
+        description:
+            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери, изданный в 1953 году. Роман описывает американское общество близкого будущего, в котором книги находятся под запретом. «Пожарные», к числу которых принадлежит и главный герой Гай Монтэг, сжигают любые найденные книги.\nВ ходе романа Монтэг разочаровывается в идеалах общества, частью которого он является, становится изгоем и присоединяется к небольшой подпольной группе маргиналов, сторонники которой заучивают тексты книг, чтобы спасти их для потомков.",
         genre: "Роман",
+        term: "29.10.2024",
         imagePath: "assets/img/book.png",
         rating: 4.6,
         isAvailable: true,
@@ -30,6 +32,7 @@ class _MyBookPageState extends State<MyBookPage> {
         author: "Фрэнк Гербертс",
         description: "Описание",
         genre: "Роман",
+        term: "01.11.2024",
         imagePath: "assets/img/book.png",
         rating: 4.6,
         isAvailable: true,
@@ -46,7 +49,15 @@ class _MyBookPageState extends State<MyBookPage> {
           SizedBox(
             height: 20,
           ),
-          SearchWidget(hintText: "Поиск по книгам"),
+          SearchWidget(
+            hintText: "Поиск по книгам",
+            iconButton: IconButton(
+                onPressed: () {
+                  //on button press
+                },
+                icon: Icon(Icons.person_outline_rounded, size: 36)),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
@@ -132,18 +143,18 @@ class _MyBookPageState extends State<MyBookPage> {
             ),
 
           //BOOK LIST
-          if(books.isNotEmpty)
-          Container(
-            height: 550,
-            child: ListView.builder(
-              itemCount: books.length,
-              itemBuilder: (context, index) {
-                return BookListElement(
-                    bookInfo: books[index],
-                    rightWidget: HaveBook(date: "31.10.2024"));
-              },
-            ),
-          )
+          if (books.isNotEmpty)
+            Container(
+              height: 550,
+              child: ListView.builder(
+                itemCount: books.length,
+                itemBuilder: (context, index) {
+                  return BookListElement(
+                      bookInfo: books[index],
+                      rightWidget: HaveBook(date: books[index].term));
+                },
+              ),
+            )
         ],
       ),
     );

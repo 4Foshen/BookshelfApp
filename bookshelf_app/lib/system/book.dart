@@ -3,6 +3,7 @@ class Book {
   final String author;
   final String description;
   final String genre;
+  final String term;
   //Change to smth
   final String imagePath;
   final double rating;
@@ -14,6 +15,7 @@ class Book {
     required this.author,
     required this.description,
     required this.genre,
+    required this.term,
     required this.imagePath,
     required this.rating,
     required this.isAvailable,
