@@ -20,6 +20,7 @@ class HaveBook extends StatelessWidget {
         MaterialButton(
           height: 35,
           minWidth: 100,
+          elevation: 0,
           color: AppColors.primaryColor,
           onPressed: () {
             //ADD FUNCTION

@@ -4,11 +4,12 @@ class Book {
   final String description;
   final String genre;
   final String term;
-  //Change to smth
-  final String imagePath;
+  final String imagePath; //Change afterBackend
   final double rating;
+  //final bool isLiked;
   final bool isAvailable;
   final bool isAwaiting;
+  final bool isReady;
 
   Book({
     required this.bookName,
@@ -20,5 +21,6 @@ class Book {
     required this.rating,
     required this.isAvailable,
     required this.isAwaiting,
+    required this.isReady,
   });
 }

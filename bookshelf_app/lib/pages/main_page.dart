@@ -85,7 +85,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 label: "Главная",
               ),
               BottomNavigationBarItem(
-                icon: _buildNavItemIcon('assets/svg/books.svg', 1),
+                icon: _buildNavItemIcon('assets/svg/books2.svg', 1),
                 label: "Мои книги",
               ),
               BottomNavigationBarItem(

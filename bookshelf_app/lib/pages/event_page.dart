@@ -50,7 +50,7 @@ class _EventPageState extends State<EventPage> {
 
           //MY EVENTS BUTTON HERE
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
             child: Row(
               children: [
                 Text(
@@ -58,7 +58,7 @@ class _EventPageState extends State<EventPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: 80,
+                  width: 40,
                 ),
                 OutlinedButton(
                     onPressed: () {

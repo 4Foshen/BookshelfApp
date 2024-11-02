@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
   final String hintText;
-  final IconButton iconButton;
+  final Widget iconButton;
   final double width;
   final double height;
   final double spacing;

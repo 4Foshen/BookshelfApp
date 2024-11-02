@@ -1,3 +1,4 @@
+import 'package:bookshelf_app/pages/authorization_pages/welcome_page.dart';
 import 'package:bookshelf_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Manrope'
       ),
-      home: MainPage(),
+      home: WelcomePage(),
     );
   }
 }

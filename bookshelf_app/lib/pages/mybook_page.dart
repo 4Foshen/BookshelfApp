@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bookshelf_app/pages/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
@@ -26,7 +27,8 @@ class _MyBookPageState extends State<MyBookPage> {
         imagePath: "assets/img/book.png",
         rating: 4.6,
         isAvailable: true,
-        isAwaiting: false),
+        isAwaiting: false,
+        isReady: true),
     Book(
         bookName: "Дюна",
         author: "Фрэнк Гербертс",
@@ -36,7 +38,8 @@ class _MyBookPageState extends State<MyBookPage> {
         imagePath: "assets/img/book.png",
         rating: 4.6,
         isAvailable: true,
-        isAwaiting: false),
+        isAwaiting: false,
+        isReady: true),
   ];
 
   @override
@@ -57,7 +60,8 @@ class _MyBookPageState extends State<MyBookPage> {
                 },
                 icon: Icon(Icons.person_outline_rounded, size: 36)),
           ),
-
+          
+          //MY BOOKS TEXT
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
@@ -109,7 +113,10 @@ class _MyBookPageState extends State<MyBookPage> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          // Действие при нажатии
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CatalogPage()));
                         },
                         borderRadius: BorderRadius.circular(5),
                         child: Padding(

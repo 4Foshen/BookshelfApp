@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookshelf_app/pages/book_page.dart';
 import 'package:bookshelf_app/pages/catalog_page.dart';
+import 'package:bookshelf_app/pages/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/system/event.dart';
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             //TextField
             SearchWidget(hintText: "Поиск по приложению", iconButton: IconButton(
             onPressed: () {
-              //on button press
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
             },
             icon: Icon(Icons.person_outline_rounded, size: 36)),),
 
@@ -138,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
                       isAvailable: true,
-                      isAwaiting: false),
+                      isAwaiting: false,
+                      isReady: true),
                 ),
                 BookContainer(
                   bookInfo: Book(
@@ -150,7 +152,8 @@ class _HomePageState extends State<HomePage> {
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
                       isAvailable: true,
-                      isAwaiting: false),
+                      isAwaiting: false,
+                      isReady: true),
                 ),
                 BookContainer(
                   bookInfo: Book(
@@ -162,7 +165,8 @@ class _HomePageState extends State<HomePage> {
                       imagePath: "assets/img/book.png",
                       rating: 4.6,
                       isAvailable: true,
-                      isAwaiting: false),
+                      isAwaiting: false,
+                      isReady: true),
                 ),
               ],
             ),
@@ -171,7 +175,9 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context) => CatalogPage(),));
+                },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
