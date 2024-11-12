@@ -1,9 +1,16 @@
-import 'package:bookshelf_app/pages/my_orders_page.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:bookshelf_app/pages/books/my_orders_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/book.dart';
 import 'package:flutter/material.dart';
 
 class DeleteBook extends StatefulWidget {
-  const DeleteBook({super.key});
+
+  final VoidCallback onPressed;
+  
+
+  const DeleteBook({super.key, required this.onPressed});
 
   @override
   State<DeleteBook> createState() => _DeleteBookState();
@@ -18,7 +25,7 @@ class _DeleteBookState extends State<DeleteBook> {
       children: [
         IconButton(
             onPressed: () {
-              //LIKE
+              
             },
             icon: Icon(
               Icons.favorite_border,
@@ -29,13 +36,7 @@ class _DeleteBookState extends State<DeleteBook> {
           height: 30,
         ),
         IconButton(
-            onPressed: () {
-              //DELETE FROM CART
-
-              //VREMENO
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyOrdersPage()));
-            },
+            onPressed: widget.onPressed,
             icon: Icon(
               Icons.delete_outlined,
               color: AppColors.secondaryColor,

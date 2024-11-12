@@ -1,5 +1,5 @@
 import 'package:bookshelf_app/pages/authorization_pages/authorization_page.dart';
-import 'package:bookshelf_app/pages/catalog_page.dart';
+import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

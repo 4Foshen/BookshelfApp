@@ -1,4 +1,4 @@
-import 'package:bookshelf_app/pages/event_info.dart';
+import 'package:bookshelf_app/pages/event/event_info.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/event.dart';
 import 'package:flutter/material.dart';

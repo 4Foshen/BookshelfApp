@@ -16,6 +16,7 @@ class MyOrdersPage extends StatefulWidget {
 class _MyOrdersPageState extends State<MyOrdersPage> {
   List<Book> books = [
     Book(
+        id: 0,
         bookName: "451 Градус по фаренгейту",
         author: "Рэй Брэдбери",
         description:
@@ -28,6 +29,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
         isAwaiting: false,
         isReady: true),
     Book(
+      id: 0,
       bookName: "Дюна",
       author: "Фрэнк Гербертс",
       description: "Описание",
@@ -40,6 +42,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       isReady: false,
     ),
     Book(
+      id: 0,
       bookName: "Дюна",
       author: "Фрэнк Гербертс",
       description: "Описание",

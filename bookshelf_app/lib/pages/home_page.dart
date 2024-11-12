@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bookshelf_app/pages/book_page.dart';
-import 'package:bookshelf_app/pages/catalog_page.dart';
-import 'package:bookshelf_app/pages/profile_page.dart';
+import 'package:bookshelf_app/pages/books/book_page.dart';
+import 'package:bookshelf_app/pages/books/catalog_page.dart';
+import 'package:bookshelf_app/pages/club/club_list_page.dart';
+import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/system/event.dart';
@@ -102,12 +105,16 @@ class _HomePageState extends State<HomePage> {
                 IconContainer(
                   assetPath: "assets/svg/clubs.svg",
                   text: "Клубы",
-                  onButtonPressed: () {},
+                  onButtonPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => ClubListPage(),));
+                  },
                 ),
                 IconContainer(
                   assetPath: "assets/svg/paint.svg",
                   text: "Творчество",
-                  onButtonPressed: () {},
+                  onButtonPressed: () {
+
+                  },
                 )
               ],
             ),
@@ -131,6 +138,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 BookContainer(
                   bookInfo: Book(
+                      id: 0,
                       bookName: "451 Градус по фаренгейту",
                       author: "Рэй Брэдбери",
                       description: "Описание",
@@ -144,6 +152,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BookContainer(
                   bookInfo: Book(
+                      id: 0,
                       bookName: "451 Градус по фаренгейту",
                       author: "Рэй Брэдбери",
                       description: "Описание",
@@ -157,6 +166,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BookContainer(
                   bookInfo: Book(
+                      id: 0,
                       bookName: "451 Градус по фаренгейту",
                       author: "Рэй Брэдбери",
                       description: "Описание",

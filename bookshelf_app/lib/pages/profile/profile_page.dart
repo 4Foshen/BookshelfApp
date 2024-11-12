@@ -1,3 +1,4 @@
+import 'package:bookshelf_app/pages/profile/settings_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
           IconButton(
             icon: Icon(Icons.edit_outlined, size: 28,),
             onPressed: () {
-              // Действие для редактирования профиля
+              Navigator.push(context, MaterialPageRoute(builder:(context) => SettingsPage(), ));
             },
           ),
         ],

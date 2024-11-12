@@ -1,11 +1,12 @@
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/book.dart';
 import 'package:flutter/material.dart';
 
 class GetBook extends StatelessWidget {
 
-  final VoidCallback onButtonPress;
+  final VoidCallback onPressed;
 
-  const GetBook({required this.onButtonPress,super.key});
+  const GetBook({required this.onPressed,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,7 @@ class GetBook extends StatelessWidget {
           minWidth: 100,
           elevation: 0,
           color: AppColors.primaryColor,
-          onPressed: () {
-            //ADD FUNCTION
-          },
+          onPressed: onPressed,
           child: Text(
             "Взять почитать",
             style: TextStyle(

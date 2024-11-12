@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bookshelf_app/pages/catalog_page.dart';
+import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
@@ -16,31 +18,9 @@ class MyBookPage extends StatefulWidget {
 }
 
 class _MyBookPageState extends State<MyBookPage> {
-  List<Book> books = [
-    Book(
-        bookName: "451 Градус по фаренгейту",
-        author: "Рэй Брэдбери",
-        description:
-            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери, изданный в 1953 году. Роман описывает американское общество близкого будущего, в котором книги находятся под запретом. «Пожарные», к числу которых принадлежит и главный герой Гай Монтэг, сжигают любые найденные книги.\nВ ходе романа Монтэг разочаровывается в идеалах общества, частью которого он является, становится изгоем и присоединяется к небольшой подпольной группе маргиналов, сторонники которой заучивают тексты книг, чтобы спасти их для потомков.",
-        genre: "Роман",
-        term: "29.10.2024",
-        imagePath: "assets/img/book.png",
-        rating: 4.6,
-        isAvailable: true,
-        isAwaiting: false,
-        isReady: true),
-    Book(
-        bookName: "Дюна",
-        author: "Фрэнк Гербертс",
-        description: "Описание",
-        genre: "Роман",
-        term: "01.11.2024",
-        imagePath: "assets/img/book.png",
-        rating: 4.6,
-        isAvailable: true,
-        isAwaiting: false,
-        isReady: true),
-  ];
+
+  //ADD CART
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +51,7 @@ class _MyBookPageState extends State<MyBookPage> {
           ),
 
           //SCREEN IF NO BOOKS
-          if (books.isEmpty)
+          if (Library.cart.isEmpty)
             Center(
               child: Column(
                 children: [
@@ -150,15 +130,15 @@ class _MyBookPageState extends State<MyBookPage> {
             ),
 
           //BOOK LIST
-          if (books.isNotEmpty)
+          if (Library.cart.isNotEmpty)
             Container(
               height: 550,
               child: ListView.builder(
-                itemCount: books.length,
+                itemCount: Library.cart.length,
                 itemBuilder: (context, index) {
                   return BookListElement(
-                      bookInfo: books[index],
-                      rightWidget: HaveBook(date: books[index].term));
+                      bookInfo: Library.cart[index],
+                      rightWidget: HaveBook(date: Library.cart[index].term));
                 },
               ),
             )

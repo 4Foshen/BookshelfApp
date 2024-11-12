@@ -1,4 +1,6 @@
-import 'package:bookshelf_app/pages/cart_page.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:bookshelf_app/pages/books/cart_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
@@ -15,31 +17,29 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  List<Book> books = [
-    Book(
-        bookName: "451 Градус по фаренгейту",
-        author: "Рэй Брэдбери",
-        description:
-            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери, изданный в 1953 году. Роман описывает американское общество близкого будущего, в котором книги находятся под запретом. «Пожарные», к числу которых принадлежит и главный герой Гай Монтэг, сжигают любые найденные книги.\nВ ходе романа Монтэг разочаровывается в идеалах общества, частью которого он является, становится изгоем и присоединяется к небольшой подпольной группе маргиналов, сторонники которой заучивают тексты книг, чтобы спасти их для потомков.",
-        genre: "Роман",
-        term: "29.10.2024",
-        imagePath: "assets/img/book.png",
-        rating: 4.6,
-        isAvailable: true,
-        isAwaiting: false,
-        isReady: true),
-    Book(
-        bookName: "Дюна",
-        author: "Фрэнк Гербертс",
-        description: "Описание",
-        genre: "Роман",
-        term: "01.11.2024",
-        imagePath: "assets/img/book.png",
-        rating: 4.6,
-        isAvailable: true,
-        isAwaiting: false,
-        isReady: true),
-  ];
+
+  int itemsAmount = 0;
+
+  @override
+  void initState() {
+    itemsAmount = Library.cart.length;
+    super.initState();
+  }
+
+  void _navigateAndUpdate() async {
+    final updatedData = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CartPage(),
+      ),
+    );
+
+    setState(() {
+      itemsAmount = Library.cart.length;
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +59,7 @@ class _CatalogPageState extends State<CatalogPage> {
           hintText: "Поиск по книгам",
           iconButton: IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CartPage(),
-                    ));
+                _navigateAndUpdate();
               },
               icon: Stack(
                 clipBehavior: Clip.none,
@@ -85,8 +81,7 @@ class _CatalogPageState extends State<CatalogPage> {
                             color: AppColors.secondaryColor, width: 2),
                       ),
                       child: Text(
-                        //INPUT HERE ITEM COUNT
-                        "0",
+                        Library.cart.length.toString(),
                         style: TextStyle(
                           color: AppColors.secondaryColor,
                           fontSize: 12,
@@ -114,13 +109,15 @@ class _CatalogPageState extends State<CatalogPage> {
           Container(
             height: 550,
             child: ListView.builder(
-              itemCount: books.length,
+              itemCount: Library.books.length,
               itemBuilder: (context, index) {
                 return BookListElement(
-                    bookInfo: books[index],
-                    rightWidget: GetBook(onButtonPress: () {
-                      //ADD TO CART
-                    }));
+                    bookInfo: Library.books[index],
+                    rightWidget: GetBook(onPressed: () {
+                      setState(() {
+                        Library.addToCart(Library.books[index]);
+                      });
+                    },));
               },
             ),
           )
