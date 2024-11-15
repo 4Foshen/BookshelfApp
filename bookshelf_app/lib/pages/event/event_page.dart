@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/event.dart';
 import 'package:bookshelf_app/widgets/event_card.dart';
@@ -37,13 +40,13 @@ class _EventPageState extends State<EventPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 20,
+            height: 40,
           ),
           SearchWidget(
             hintText: "Поиск по мероприятиям",
             iconButton: IconButton(
                 onPressed: () {
-                  //on button press
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                 },
                 icon: Icon(Icons.person_outline_rounded, size: 36)),
           ),
@@ -58,7 +61,7 @@ class _EventPageState extends State<EventPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: 40,
+                  width: 53,
                 ),
                 OutlinedButton(
                     onPressed: () {

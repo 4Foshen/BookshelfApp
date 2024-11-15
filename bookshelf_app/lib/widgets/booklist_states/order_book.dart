@@ -1,6 +1,6 @@
 import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/book.dart';
+import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

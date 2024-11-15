@@ -1,8 +1,11 @@
 import 'package:bookshelf_app/pages/authorization_pages/welcome_page.dart';
 import 'package:bookshelf_app/pages/main_page.dart';
+import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Library.loadCart();
   runApp(const MainApp());
 }
 

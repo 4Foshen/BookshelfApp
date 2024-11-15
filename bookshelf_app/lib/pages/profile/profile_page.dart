@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:bookshelf_app/pages/books/favorite_page.dart';
+import 'package:bookshelf_app/pages/books/mybook_page.dart';
 import 'package:bookshelf_app/pages/profile/settings_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -108,14 +112,14 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: Icon(Icons.favorite_outline, color: AppColors.secondaryColor,),
               text: 'Избранное',
               onTap: () {
-                // Действие для избранного
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritePage()));
               },
             ),
             _buildMenuItem(
               icon: SvgPicture.asset('assets/svg/books2.svg'),
               text: 'Мои книги',
               onTap: () {
-                // Действие для книг
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyBookPage()));
               },
             ),
             _buildMenuItem(

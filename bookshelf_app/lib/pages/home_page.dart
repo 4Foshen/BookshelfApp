@@ -6,7 +6,7 @@ import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/club/club_list_page.dart';
 import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/book.dart';
+import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:bookshelf_app/system/event.dart';
 import 'package:bookshelf_app/widgets/event_card.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             //TextField
             SearchWidget(hintText: "Поиск по приложению", iconButton: IconButton(

@@ -1,12 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:flutter/material.dart';
 
-class GetBook extends StatelessWidget {
-
-  final VoidCallback onPressed;
-
-  const GetBook({required this.onPressed,super.key});
+class FavoriteBook extends StatelessWidget {
+  const FavoriteBook({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,9 @@ class GetBook extends StatelessWidget {
           minWidth: 100,
           elevation: 0,
           color: AppColors.primaryColor,
-          onPressed: onPressed,
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CatalogPage()));
+          },
           child: Text(
             "Взять почитать",
             style: TextStyle(

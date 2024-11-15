@@ -1,27 +1,24 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/books/my_orders_page.dart';
-import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
+import 'package:bookshelf_app/widgets/booklist_states/favorite_book.dart';
 import 'package:bookshelf_app/widgets/booklist_states/have_book.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
-class MyBookPage extends StatefulWidget {
-  const MyBookPage({super.key});
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({super.key});
 
   @override
-  State<MyBookPage> createState() => _MyBookPageState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _MyBookPageState extends State<MyBookPage> {
-
-
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,62 +31,21 @@ class _MyBookPageState extends State<MyBookPage> {
           ),
           SearchWidget(
             hintText: "Поиск по книгам",
-            iconButton: IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-                },
-                icon: Icon(Icons.person_outline_rounded, size: 36)),
+            width: 360,
+            iconButton: SizedBox(),
           ),
           
           //MY BOOKS TEXT
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    "Мои книги",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(width: 80,),
-                OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrdersPage()));
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side:
-                            BorderSide(color: AppColors.secondaryColor, width: 2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset("assets/svg/events.svg"),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "Мои заказы",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                        ],
-                      )),
-              ],
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "Избранное",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
 
           //SCREEN IF NO BOOKS
-          if (Library.ownedBooks.isEmpty)
+          if (Library.cart.isEmpty)
             Center(
               child: Column(
                 children: [
@@ -167,16 +123,16 @@ class _MyBookPageState extends State<MyBookPage> {
               ),
             ),
 
-          //BOOK LIST
-          if (Library.ownedBooks.isNotEmpty)
+          //BOOK LIST VREMENNO CART!!!!
+          if (Library.cart.isNotEmpty)
             Container(
               height: 550,
               child: ListView.builder(
-                itemCount: Library.ownedBooks.length,
+                itemCount: Library.cart.length,
                 itemBuilder: (context, index) {
                   return BookListElement(
-                      bookInfo: Library.ownedBooks[index],
-                      rightWidget: HaveBook(date: Library.ownedBooks[index].term));
+                      bookInfo: Library.cart[index],
+                      rightWidget: FavoriteBook());
                 },
               ),
             )
