@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
   List<Event> events = [
     Event(
         eventName: "Акция \"Читающая нация\"",
-        description: "В современном мире, где технологии играют важную роль в жизни каждого, чтение книг остается важным элементом культуры и образования. Мероприятие «Читающая нация» направлено на популяризацию чтения как важного инструмента развития личности и общества в целом.",
+        description:
+            "В современном мире, где технологии играют важную роль в жизни каждого, чтение книг остается важным элементом культуры и образования. Мероприятие «Читающая нация» направлено на популяризацию чтения как важного инструмента развития личности и общества в целом.",
         imagePath: "assets/img/example.jpg",
         date: "31.10.2024",
         adress: "Караганда, ул. Саттара Ерубаева, 44"),
@@ -50,11 +51,15 @@ class _HomePageState extends State<HomePage> {
               height: 40,
             ),
             //TextField
-            SearchWidget(hintText: "Поиск по приложению", iconButton: IconButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-            },
-            icon: Icon(Icons.person_outline_rounded, size: 36)),),
+            SearchWidget(
+              hintText: "Поиск по приложению",
+              iconButton: IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
+                  icon: Icon(Icons.person_outline_rounded, size: 36)),
+            ),
 
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -99,22 +104,28 @@ class _HomePageState extends State<HomePage> {
                   text: "Каталог",
                   height: 20,
                   onButtonPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => CatalogPage(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CatalogPage(),
+                        ));
                   },
                 ),
                 IconContainer(
                   assetPath: "assets/svg/clubs.svg",
                   text: "Клубы",
                   onButtonPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => ClubListPage(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClubListPage(),
+                        ));
                   },
                 ),
                 IconContainer(
                   assetPath: "assets/svg/paint.svg",
                   text: "Творчество",
-                  onButtonPressed: () {
-
-                  },
+                  onButtonPressed: () {},
                 )
               ],
             ),
@@ -138,45 +149,66 @@ class _HomePageState extends State<HomePage> {
               children: [
                 BookContainer(
                   bookInfo: Book(
-                      id: 0,
-                      bookName: "451 Градус по фаренгейту",
-                      author: "Рэй Брэдбери",
-                      description: "Описание",
-                      genre: "роман",
-                      term: "30.10.2024",
-                      imagePath: "assets/img/book.png",
-                      rating: 4.6,
-                      isAvailable: true,
-                      isAwaiting: false,
-                      isReady: true),
+                    id: 0,
+                    author: "Рей Бредберри",
+                    term: "29.10.2024",
+                    ruContent: Content(
+                        bookName: "451 Градус по фаренгейту",
+                        description:
+                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
+                        genre: "Роман"),
+                    kzContent: Content(
+                        bookName: "Название на казахском",
+                        description: "Описание на казахском",
+                        genre: "Жанр на казахском"),
+                    imagePath: "assets/img/book.png",
+                    rating: 4.5,
+                    isAvailable: true,
+                    isAwaiting: false,
+                    isReady: true,
+                  ),
                 ),
                 BookContainer(
                   bookInfo: Book(
-                      id: 0,
-                      bookName: "451 Градус по фаренгейту",
-                      author: "Рэй Брэдбери",
-                      description: "Описание",
-                      term: "01.11.2024",
-                      genre: "роман",
-                      imagePath: "assets/img/book.png",
-                      rating: 4.6,
-                      isAvailable: true,
-                      isAwaiting: false,
-                      isReady: true),
+                    id: 0,
+                    author: "Рей Бредберри",
+                    term: "29.10.2024",
+                    ruContent: Content(
+                        bookName: "451 Градус по фаренгейту",
+                        description:
+                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
+                        genre: "Роман"),
+                    kzContent: Content(
+                        bookName: "Название на казахском",
+                        description: "Описание на казахском",
+                        genre: "Жанр на казахском"),
+                    imagePath: "assets/img/book.png",
+                    rating: 4.5,
+                    isAvailable: true,
+                    isAwaiting: false,
+                    isReady: true,
+                  ),
                 ),
                 BookContainer(
                   bookInfo: Book(
-                      id: 0,
-                      bookName: "451 Градус по фаренгейту",
-                      author: "Рэй Брэдбери",
-                      description: "Описание",
-                      genre: "роман",
-                      term: "01.11.2024",
-                      imagePath: "assets/img/book.png",
-                      rating: 4.6,
-                      isAvailable: true,
-                      isAwaiting: false,
-                      isReady: true),
+                    id: 0,
+                    author: "Рей Бредберри",
+                    term: "29.10.2024",
+                    ruContent: Content(
+                        bookName: "451 Градус по фаренгейту",
+                        description:
+                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
+                        genre: "Роман"),
+                    kzContent: Content(
+                        bookName: "Название на казахском",
+                        description: "Описание на казахском",
+                        genre: "Жанр на казахском"),
+                    imagePath: "assets/img/book.png",
+                    rating: 4.5,
+                    isAvailable: true,
+                    isAwaiting: false,
+                    isReady: true,
+                  ),
                 ),
               ],
             ),
@@ -186,7 +218,11 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(16.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder:(context) => CatalogPage(),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CatalogPage(),
+                      ));
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,9 +299,9 @@ class BookContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = bookInfo.bookName.length > 8
-        ? bookInfo.bookName.substring(0, 8) + ".."
-        : bookInfo.bookName;
+    String displayName = bookInfo.ruContent.bookName.length > 8
+        ? bookInfo.ruContent.bookName.substring(0, 8) + ".."
+        : bookInfo.ruContent.bookName;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,7 +359,7 @@ class BookContainer extends StatelessWidget {
           ),
         ),
         Text(
-          bookInfo.genre,
+          bookInfo.ruContent.genre,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

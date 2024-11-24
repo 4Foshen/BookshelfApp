@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors
+
 import 'package:bookshelf_app/pages/books/book_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/library_controller.dart';
@@ -15,7 +17,7 @@ class BookListElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String finalName =
-        bookInfo.bookName.length > 20 ? bookInfo.bookName.substring(0, 19) + ".." : bookInfo.bookName;
+        bookInfo.ruContent.bookName.length > 20 ? bookInfo.ruContent.bookName.substring(0, 19) + ".." : bookInfo.ruContent.bookName;
 
     return Column(
       children: [

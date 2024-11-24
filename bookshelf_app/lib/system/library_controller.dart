@@ -3,74 +3,59 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Book {
   final int id;
-  final String bookName;
   final String author;
-  final String description;
-  final String genre;
-  final String term;
+  final Content ruContent;
+  final Content kzContent;
+  final String term; //Srok
   final String imagePath;
   final double rating;
   final bool isAvailable;
   final bool isAwaiting;
   final bool isReady;
+  final bool isFavorite;
 
   Book({
     required this.id,
-    required this.bookName,
     required this.author,
-    required this.description,
-    required this.genre,
     required this.term,
+    required this.ruContent,
+    required this.kzContent,
     required this.imagePath,
     required this.rating,
     required this.isAvailable,
     required this.isAwaiting,
     required this.isReady,
+    this.isFavorite = false,
   });
+}
 
-  
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'bookName': bookName,
-        'author': author,
-        'description': description,
-        'genre': genre,
-        'term': term,
-        'imagePath': imagePath,
-        'rating': rating,
-        'isAvailable': isAvailable,
-        'isAwaiting': isAwaiting,
-        'isReady': isReady,
-      };
+class Content{
+  final String bookName;
+  final String description;
+  final String genre;
 
-  
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-      id: json['id'],
-      bookName: json['bookName'],
-      author: json['author'],
-      description: json['description'],
-      genre: json['genre'],
-      term: json['term'],
-      imagePath: json['imagePath'],
-      rating: json['rating'],
-      isAvailable: json['isAvailable'],
-      isAwaiting: json['isAwaiting'],
-      isReady: json['isReady'],
-    );
-  }
+  Content({
+    required this.bookName,
+    required this.description,
+    required this.genre,
+  });
 }
 
 class Library {
   static final List<Book> _books = [
     Book(
       id: 0,
-      bookName: "451 Градус по фаренгейту",
       author: "Рей Бредберри",
-      description:
-          "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
-      genre: "Роман",
       term: "29.10.2024",
+      ruContent: Content(
+        bookName: "451 Градус по фаренгейту", 
+        description: "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...", 
+        genre: "Роман"
+        ),
+      kzContent: Content(
+        bookName: "Название на казахском", 
+        description: "Описание на казахском", 
+        genre: "Жанр на казахском"),
       imagePath: "assets/img/book.png",
       rating: 4.5,
       isAvailable: true,
@@ -79,10 +64,15 @@ class Library {
     ),
     Book(
       id: 1,
-      bookName: "Дюна",
       author: "Фрэнк Герберт",
-      description: "Описание",
-      genre: "Фантастика",
+      ruContent: Content(
+        bookName: "Дюна", 
+        description: "Описание", 
+        genre: "Фантастика"),
+      kzContent: Content(
+        bookName: "ДюнаКЗ", 
+        description: "ОписаниеКЗ", 
+        genre: "ЖанрКЗ"),
       term: "12.11.2024",
       imagePath: "assets/img/book.png",
       rating: 4.7,
@@ -101,30 +91,11 @@ class Library {
   static List<Book> get orders => _orders;
   static List<Book> get ownedBooks => _ownedBooks;
 
-  // Сохранение корзины в локальное хранилище
-  static Future<void> saveCart() async {
-    final prefs = await SharedPreferences.getInstance();
-    final cartJson = _cart.map((book) => book.toJson()).toList();
-    await prefs.setString('cart', jsonEncode(cartJson));
-    print("Корзина сохранена локально.");
-  }
-
-  // Загрузка корзины из локального хранилища
-  static Future<void> loadCart() async {
-    final prefs = await SharedPreferences.getInstance();
-    final cartString = prefs.getString('cart');
-    if (cartString != null) {
-      final List<dynamic> cartJson = jsonDecode(cartString);
-      _cart.clear();
-      _cart.addAll(cartJson.map((json) => Book.fromJson(json)).toList());
-      print("Корзина загружена из локального хранилища.");
-    }
-  }
+  
 
   static void addToCart(Book book) {
     if (!_cart.contains(book) && !_orders.contains(book)) {
       _cart.add(book);
-      saveCart();
     } else {
       print("Эта книга уже в корзине.");
     }
@@ -134,18 +105,15 @@ class Library {
     if (_cart.isNotEmpty) {
       _orders.addAll(_cart);
       _cart.clear();
-      saveCart();
     }
   }
 
   static void removeFromCart(Book book) {
     _cart.remove(book);
-    saveCart();
   }
 
   static void clearCart() {
     _cart.clear();
-    saveCart();
   }
 
   static Book? findBookById(int id) {

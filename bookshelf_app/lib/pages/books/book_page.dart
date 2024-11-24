@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/library_controller.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ class _BookPageState extends State<BookPage> {
                     Container(
                       width: 200,
                       child: Text(
-                        widget.bookInfo.bookName,
+                        widget.bookInfo.ruContent.bookName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -97,7 +99,7 @@ class _BookPageState extends State<BookPage> {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    //Add to korzina
+                    Library.addToCart(widget.bookInfo);
                   },
                   minWidth: 120,
                   height: 35,
@@ -119,7 +121,7 @@ class _BookPageState extends State<BookPage> {
             Container(
               width: 350,
               child: Text(
-                widget.bookInfo.description,
+                widget.bookInfo.ruContent.description,
                 textAlign: TextAlign.justify,
               ),
             )
