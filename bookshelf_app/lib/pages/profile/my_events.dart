@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:bookshelf_app/pages/profile/my_events.dart';
 import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/event.dart';
@@ -9,14 +6,14 @@ import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class EventPage extends StatefulWidget {
-  const EventPage({super.key});
+class MyEvents extends StatefulWidget {
+  const MyEvents({super.key});
 
   @override
-  State<EventPage> createState() => _EventPageState();
+  State<MyEvents> createState() => _MyEventsState();
 }
 
-class _EventPageState extends State<EventPage> {
+class _MyEventsState extends State<MyEvents> {
   List<Event> events = [
     Event(
         eventName: "Акция \"Читающая нация\"",
@@ -52,59 +49,14 @@ class _EventPageState extends State<EventPage> {
                 icon: Icon(Icons.person_outline_rounded, size: 36)),
           ),
 
-          //MY EVENTS BUTTON HERE
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
-            child: Row(
-              children: [
-                Text(
-                  "События",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 53,
-                ),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyEvents()));
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side:
-                          BorderSide(color: AppColors.secondaryColor, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset("assets/svg/events.svg"),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          "Мои мероприятия",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textColor,
-                          ),
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-          ),
+      
           Container(
             height: 520,
             child: ListView.builder(
               itemCount: events.length,
               itemBuilder: (context, index) {
-                return EventCardForList(
+                return EventCardButtonForList(
                   eventInfo: events[index],
-                  buttonText: "Подробнее",
                 );
               },
             ),

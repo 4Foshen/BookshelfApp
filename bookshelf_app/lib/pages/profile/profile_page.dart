@@ -2,6 +2,8 @@
 
 import 'package:bookshelf_app/pages/books/favorite_page.dart';
 import 'package:bookshelf_app/pages/books/mybook_page.dart';
+import 'package:bookshelf_app/pages/profile/my_clubs.dart';
+import 'package:bookshelf_app/pages/profile/my_events.dart';
 import 'package:bookshelf_app/pages/profile/settings_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -126,14 +128,14 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: SvgPicture.asset('assets/svg/events.svg'),
               text: 'Мои мероприятия',
               onTap: () {
-                // Действие для мероприятий
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
             _buildMenuItem(
               icon: SvgPicture.asset('assets/svg/clubs.svg'),
               text: 'Мои клубы',
               onTap: () {
-                // Действие для клубов
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyClubs()));
               },
             ),
             _buildMenuItem(
@@ -147,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: Icon(Icons.exit_to_app_rounded, color: Colors.red, size: 26,),
               text: 'Выйти',
               onTap: () {
-                // Действие для выхода из аккаунта
+                // Exit account, + add closing all screens
               },
             ),
           ],

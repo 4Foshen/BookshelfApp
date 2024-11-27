@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bookshelf_app/pages/art/art_page.dart';
 import 'package:bookshelf_app/pages/books/book_page.dart';
 import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/club/club_list_page.dart';
@@ -125,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                 IconContainer(
                   assetPath: "assets/svg/paint.svg",
                   text: "Творчество",
-                  onButtonPressed: () {},
+                  onButtonPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => ArtPage(),));
+                  },
                 )
               ],
             ),
@@ -333,7 +336,7 @@ class BookContainer extends StatelessWidget {
                     right: 0,
                     child: IconButton(
                         onPressed: () {
-                          //Add to korzina emae
+                          Library.addToCart(bookInfo);
                         },
                         icon: Icon(
                           Icons.add_circle,
