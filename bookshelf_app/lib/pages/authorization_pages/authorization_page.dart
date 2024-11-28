@@ -14,6 +14,7 @@ class AuthorizationPage extends StatefulWidget {
 
 class _AuthorizationPageState extends State<AuthorizationPage> {
   final TextEditingController numberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,16 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                   hintText: "Введите номер телефона или номер  билета"),
+            ),
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: InputField(
+                  controller: passwordController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  hintText: "Пароль"),
             ),
 
             SizedBox(

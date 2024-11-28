@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/widgets/input_field.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController positionController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   final TextEditingController adressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +127,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       inputFormatters: [],
                       hintText: "Адрес проживания"),
                 ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: InputField(
+                      controller: passwordController,
+                      inputFormatters: [],
+                      hintText: "Пароль"),
+                ),
+
 
                 SizedBox(height: 43,),
 
