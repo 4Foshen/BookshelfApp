@@ -5,7 +5,7 @@ import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/books/my_orders_page.dart';
 import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
 import 'package:bookshelf_app/widgets/booklist_states/have_book.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
@@ -168,18 +168,18 @@ class _MyBookPageState extends State<MyBookPage> {
             ),
 
           //BOOK LIST
-          if (Library.ownedBooks.isNotEmpty)
-            Container(
-              height: 550,
-              child: ListView.builder(
-                itemCount: Library.ownedBooks.length,
-                itemBuilder: (context, index) {
-                  return BookListElement(
-                      bookInfo: Library.ownedBooks[index],
-                      rightWidget: HaveBook(date: Library.ownedBooks[index].term));
-                },
-              ),
-            )
+          // if (Library.ownedBooks.isNotEmpty)
+          //   Container(
+          //     height: 550,
+          //     child: ListView.builder(
+          //       itemCount: Library.ownedBooks.length,
+          //       itemBuilder: (context, index) {
+          //         return BookListElement(
+          //             bookInfo: Library.ownedBooks[index],
+          //             rightWidget: HaveBook(date: Library.ownedBooks[index].term));
+          //       },
+          //     ),
+          //   )
         ],
       ),
     );

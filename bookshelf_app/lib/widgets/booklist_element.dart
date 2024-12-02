@@ -2,7 +2,7 @@
 
 import 'package:bookshelf_app/pages/books/book_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:flutter/material.dart';
 
 class BookListElement extends StatelessWidget {
@@ -17,7 +17,7 @@ class BookListElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String finalName =
-        bookInfo.ruContent.bookName.length > 20 ? bookInfo.ruContent.bookName.substring(0, 19) + ".." : bookInfo.ruContent.bookName;
+        bookInfo.content.ru.title.length > 20 ? bookInfo.content.ru.title.substring(0, 19) + ".." : bookInfo.content.ru.title;
 
     return Column(
       children: [
@@ -48,10 +48,20 @@ class BookListElement extends StatelessWidget {
                   ),
                 ),
               ),
-              //TEXT COLLUMN
+              //TEXT COLUMN
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                      width: 95,
+                      child: Text(
+                        bookInfo.genre.ru,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      )),
                   Container(
                       width: 95,
                       child: Text(
@@ -67,7 +77,7 @@ class BookListElement extends StatelessWidget {
                         bookInfo.author,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: AppColors.secondaryTextColor,
                         ),
                       )),
@@ -80,10 +90,10 @@ class BookListElement extends StatelessWidget {
                         Icons.star_rounded,
                         color: Colors.yellow[600],
                       ),
-                      Text(
-                        bookInfo.rating.toString(),
-                        style: TextStyle(fontSize: 16),
-                      )
+                      // Text(
+                      //   bookInfo.rating.toString(),
+                      //   style: TextStyle(fontSize: 16),
+                      // )
                     ],
                   )
                 ],

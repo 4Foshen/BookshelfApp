@@ -1,5 +1,5 @@
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
 import 'package:bookshelf_app/widgets/booklist_states/delete_book.dart';
 import 'package:bookshelf_app/widgets/booklist_states/order_book.dart';
@@ -14,64 +14,7 @@ class MyOrdersPage extends StatefulWidget {
 }
 
 class _MyOrdersPageState extends State<MyOrdersPage> {
-  List<Book> books = [
-    Book(
-      id: 0,
-      author: "Рей Бредберри",
-      term: "29.10.2024",
-      ruContent: Content(
-        bookName: "451 Градус по фаренгейту", 
-        description: "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...", 
-        genre: "Роман"
-        ),
-      kzContent: Content(
-        bookName: "Название на казахском", 
-        description: "Описание на казахском", 
-        genre: "Жанр на казахском"),
-      imagePath: "assets/img/book.png",
-      rating: 4.5,
-      isAvailable: true,
-      isAwaiting: false,
-      isReady: true,
-    ),
-    Book(
-      id: 0,
-      author: "Рей Бредберри",
-      term: "29.10.2024",
-      ruContent: Content(
-        bookName: "451 Градус по фаренгейту", 
-        description: "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...", 
-        genre: "Роман"
-        ),
-      kzContent: Content(
-        bookName: "Название на казахском", 
-        description: "Описание на казахском", 
-        genre: "Жанр на казахском"),
-      imagePath: "assets/img/book.png",
-      rating: 4.5,
-      isAvailable: true,
-      isAwaiting: false,
-      isReady: true,
-    ),
-    Book(
-      id: 1,
-      author: "Фрэнк Герберт",
-      ruContent: Content(
-        bookName: "Дюна", 
-        description: "Описание", 
-        genre: "Фантастика"),
-      kzContent: Content(
-        bookName: "ДюнаКЗ", 
-        description: "ОписаниеКЗ", 
-        genre: "ЖанрКЗ"),
-      term: "12.11.2024",
-      imagePath: "assets/img/book.png",
-      rating: 4.7,
-      isAvailable: true,
-      isAwaiting: true,
-      isReady: false,
-    ),
-  ];
+  List<Book> books = [];
 
   @override
   Widget build(BuildContext context) {

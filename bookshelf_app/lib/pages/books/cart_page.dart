@@ -2,7 +2,7 @@
 
 import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
 import 'package:bookshelf_app/widgets/booklist_states/delete_book.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';

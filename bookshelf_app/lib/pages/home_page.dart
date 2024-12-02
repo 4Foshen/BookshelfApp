@@ -7,7 +7,7 @@ import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/club/club_list_page.dart';
 import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:bookshelf_app/system/event.dart';
 import 'package:bookshelf_app/widgets/event_card.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
@@ -23,6 +23,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   //When Backend ready get from it
   List<Event> events = [
     Event(
@@ -41,6 +43,13 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    Library.loadBooks();
+    print(Library.books);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -52,14 +61,16 @@ class _HomePageState extends State<HomePage> {
               height: 40,
             ),
             //TextField
-            SearchWidget(
-              hintText: "Поиск по приложению",
-              iconButton: IconButton(
+            Row(
+              children: [
+                Spacer(),
+                IconButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => ProfilePage()));
                   },
                   icon: Icon(Icons.person_outline_rounded, size: 36)),
+              ],
             ),
 
             Padding(
@@ -150,69 +161,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                BookContainer(
-                  bookInfo: Book(
-                    id: 0,
-                    author: "Рей Бредберри",
-                    term: "29.10.2024",
-                    ruContent: Content(
-                        bookName: "451 Градус по фаренгейту",
-                        description:
-                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
-                        genre: "Роман"),
-                    kzContent: Content(
-                        bookName: "Название на казахском",
-                        description: "Описание на казахском",
-                        genre: "Жанр на казахском"),
-                    imagePath: "assets/img/book.png",
-                    rating: 4.5,
-                    isAvailable: true,
-                    isAwaiting: false,
-                    isReady: true,
-                  ),
-                ),
-                BookContainer(
-                  bookInfo: Book(
-                    id: 0,
-                    author: "Рей Бредберри",
-                    term: "29.10.2024",
-                    ruContent: Content(
-                        bookName: "451 Градус по фаренгейту",
-                        description:
-                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
-                        genre: "Роман"),
-                    kzContent: Content(
-                        bookName: "Название на казахском",
-                        description: "Описание на казахском",
-                        genre: "Жанр на казахском"),
-                    imagePath: "assets/img/book.png",
-                    rating: 4.5,
-                    isAvailable: true,
-                    isAwaiting: false,
-                    isReady: true,
-                  ),
-                ),
-                BookContainer(
-                  bookInfo: Book(
-                    id: 0,
-                    author: "Рей Бредберри",
-                    term: "29.10.2024",
-                    ruContent: Content(
-                        bookName: "451 Градус по фаренгейту",
-                        description:
-                            "«451 градус по Фаренгейту» — научно-фантастический роман-антиутопия Рэя Брэдбери...",
-                        genre: "Роман"),
-                    kzContent: Content(
-                        bookName: "Название на казахском",
-                        description: "Описание на казахском",
-                        genre: "Жанр на казахском"),
-                    imagePath: "assets/img/book.png",
-                    rating: 4.5,
-                    isAvailable: true,
-                    isAwaiting: false,
-                    isReady: true,
-                  ),
-                ),
+                
               ],
             ),
 
@@ -302,9 +251,9 @@ class BookContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayName = bookInfo.ruContent.bookName.length > 8
-        ? bookInfo.ruContent.bookName.substring(0, 8) + ".."
-        : bookInfo.ruContent.bookName;
+    String displayName = bookInfo.content.ru.title.length > 8
+        ? bookInfo.content.ru.title.substring(0, 8) + ".."
+        : bookInfo.content.ru.title;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,7 +311,7 @@ class BookContainer extends StatelessWidget {
           ),
         ),
         Text(
-          bookInfo.ruContent.genre,
+          bookInfo.genre.ru,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

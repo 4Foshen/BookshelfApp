@@ -1,11 +1,12 @@
 import 'package:bookshelf_app/pages/authorization_pages/welcome_page.dart';
 import 'package:bookshelf_app/pages/main_page.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
+
 }
 
 class MainApp extends StatelessWidget {
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Manrope'
       ),
-      home: WelcomePage(),
+      home: WelcomePage(), //CHECK IF HAS TOKEN
     );
   }
 }

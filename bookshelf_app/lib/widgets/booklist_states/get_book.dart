@@ -1,5 +1,5 @@
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:flutter/material.dart';
 
 class GetBook extends StatelessWidget {

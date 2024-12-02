@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bookshelf_app/system/app_colors.dart';
-import 'package:bookshelf_app/system/library_controller.dart';
+import 'package:bookshelf_app/system/book_model.dart';
 import 'package:flutter/material.dart';
 
 class BookPage extends StatefulWidget {
@@ -56,10 +56,10 @@ class _BookPageState extends State<BookPage> {
                   color: Colors.yellow[600],
                   size: 32,
                 ),
-                Text(
-                  widget.bookInfo.rating.toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                // Text(
+                //   widget.bookInfo.rating.toString(),
+                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
                 SizedBox(
                   width: 250,
                 ),
@@ -83,7 +83,7 @@ class _BookPageState extends State<BookPage> {
                     Container(
                       width: 200,
                       child: Text(
-                        widget.bookInfo.ruContent.bookName,
+                        widget.bookInfo.content.ru.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -121,7 +121,7 @@ class _BookPageState extends State<BookPage> {
             Container(
               width: 350,
               child: Text(
-                widget.bookInfo.ruContent.description,
+                widget.bookInfo.content.ru.description,
                 textAlign: TextAlign.justify,
               ),
             )
