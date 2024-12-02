@@ -3,6 +3,8 @@
 import 'package:bookshelf_app/pages/books/cart_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book_model.dart';
+import 'package:bookshelf_app/system/book_service.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
 import 'package:bookshelf_app/widgets/booklist_states/get_book.dart';
 import 'package:bookshelf_app/widgets/booklist_states/have_book.dart';
@@ -17,7 +19,6 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-
   int itemsAmount = 0;
 
   @override
@@ -39,7 +40,16 @@ class _CatalogPageState extends State<CatalogPage> {
     });
   }
 
+  void _toogle(Book bookInfo) async {
+    final token = await ApiService().getToken();
+    final BookService service = BookService(token: token!);
 
+    setState(() {
+      bookInfo.hasFavorite = !bookInfo.hasFavorite;
+    });
+    
+    await service.toggleFavorites(bookInfo.bookId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,11 +123,17 @@ class _CatalogPageState extends State<CatalogPage> {
               itemBuilder: (context, index) {
                 return BookListElement(
                     bookInfo: Library.books[index],
-                    rightWidget: GetBook(onPressed: () {
-                      setState(() {
-                        Library.addToCart(Library.books[index]);
-                      });
-                    },));
+                    rightWidget: GetBook(
+                      onPressed: () {
+                        setState(() {
+                          Library.addToCart(Library.books[index]);
+                        });
+                      },
+                      onFavorite: () {
+                          _toogle(Library.books[index]);
+                      },
+                      bookInfo: Library.books[index],
+                    ));
               },
             ),
           )

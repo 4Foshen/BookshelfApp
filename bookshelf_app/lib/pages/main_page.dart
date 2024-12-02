@@ -2,6 +2,7 @@ import 'package:bookshelf_app/pages/event/event_page.dart';
 import 'package:bookshelf_app/pages/home_page.dart';
 import 'package:bookshelf_app/pages/books/mybook_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,6 +27,12 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    ApiService().getProfile();
+    super.initState();
   }
 
   @override

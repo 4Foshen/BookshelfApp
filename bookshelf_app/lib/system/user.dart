@@ -13,7 +13,6 @@ class User {
     required this.profile,
   });
 
-  /// Метод для создания объекта User из JSON
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
@@ -24,7 +23,6 @@ class User {
     );
   }
 
-  /// Метод для преобразования объекта User в JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -36,7 +34,6 @@ class User {
   }
 }
 
-/// Модель профиля пользователя
 class UserProfile {
   final String name;
   final String surname;
@@ -50,7 +47,6 @@ class UserProfile {
     required this.organization,
   });
 
-  /// Метод для создания объекта UserProfile из JSON
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       name: json['name'],
@@ -60,7 +56,6 @@ class UserProfile {
     );
   }
 
-  /// Метод для преобразования объекта UserProfile в JSON
   Map<String, dynamic> toJson() {
     return {
       'name': name,

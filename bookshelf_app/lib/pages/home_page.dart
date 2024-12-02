@@ -9,6 +9,7 @@ import 'package:bookshelf_app/pages/profile/profile_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book_model.dart';
 import 'package:bookshelf_app/system/event.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:bookshelf_app/widgets/event_card.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -23,9 +24,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
-  //When Backend ready get from it
+  // Флаг для отслеживания загрузки
+  bool isLoading = true;
   List<Event> events = [
     Event(
         eventName: "Акция \"Читающая нация\"",
@@ -44,9 +44,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    _loadBooks();
     super.initState();
-    Library.loadBooks();
-    print(Library.books);
+  }
+
+  void _loadBooks() async {
+    await Library.loadBooks();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -64,12 +70,22 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Spacer(),
+                Text(
+                  (UserData.currentUser?.profile.name ?? "") +
+                      " " +
+                      (UserData.currentUser?.profile.surname ?? ""),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()));
-                  },
-                  icon: Icon(Icons.person_outline_rounded, size: 36)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()));
+                    },
+                    icon: Icon(Icons.person_outline_rounded, size: 36)),
               ],
             ),
 
@@ -138,7 +154,11 @@ class _HomePageState extends State<HomePage> {
                   assetPath: "assets/svg/paint.svg",
                   text: "Творчество",
                   onButtonPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => ArtPage(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ArtPage(),
+                        ));
                   },
                 )
               ],
@@ -156,14 +176,23 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            //CHANGE AFTER BACKEND
-            //BookList
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                
-              ],
-            ),
+            // Если идет загрузка, показываем индикатор загрузки
+            isLoading && Library.books.isEmpty
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.primaryColor,
+                  ))
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      if (Library.books.isNotEmpty)
+                        BookContainer(bookInfo: Library.books[0]),
+                      if (Library.books.isNotEmpty)
+                        BookContainer(bookInfo: Library.books[1]),
+                      if (Library.books.isNotEmpty)
+                        BookContainer(bookInfo: Library.books[0]),
+                    ],
+                  ),
 
             //ALL VARIANTS
             Padding(

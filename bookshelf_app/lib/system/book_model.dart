@@ -1,30 +1,37 @@
 import 'dart:ffi';
 import 'package:bookshelf_app/system/book_service.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class Book {
+  final int bookId;
   final List<String> images;
   final String author;
   final Content content;
   final Genre genre;
+  late bool hasFavorite;
 
-  //final double rating;
+  final String rating;
 
   Book({
+    required this.bookId,
     required this.images,
     required this.author,
     required this.content,
     required this.genre,
-    //required this.rating,
+    this.hasFavorite = false,
+    this.rating = "4.7",
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
+      bookId: json['id'],
       images: List<String>.from(json['images']),
       author: json['author'],
       content: Content.fromJson(json['content']),
       genre: Genre.fromJson(json['genre']['content']),
+      hasFavorite: json['hasFavorite']
       //rating: json['rating'],
     );
   }
@@ -77,7 +84,7 @@ class Genre {
 
 class Library {
   static final BookService service =
-      BookService(baseUrl: "http://77.246.247.118:6677/api", token: "");
+      BookService(token: "");
 
   static final List<Book> _books = [];
 
@@ -90,12 +97,13 @@ class Library {
   static List<Book> get orders => _orders;
   static List<Book> get ownedBooks => _ownedBooks;
 
-  static void loadBooks() async {
+  static Future<void> loadBooks() async {
+    final token = await ApiService().getToken();
     final List<Book> loadedBooks =
-        await service.fetchBooks();
+        await service.fetchBooks(user: token);
     
     print(loadedBooks);
-    _books.clear();
+    if(_books.isNotEmpty) _books.clear();
     _books.addAll(loadedBooks);
   }
 

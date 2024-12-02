@@ -4,8 +4,11 @@ import 'package:bookshelf_app/pages/books/catalog_page.dart';
 import 'package:bookshelf_app/pages/books/my_orders_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book_model.dart';
+import 'package:bookshelf_app/system/book_service.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:bookshelf_app/widgets/booklist_element.dart';
 import 'package:bookshelf_app/widgets/booklist_states/favorite_book.dart';
+import 'package:bookshelf_app/widgets/booklist_states/get_book.dart';
 import 'package:bookshelf_app/widgets/booklist_states/have_book.dart';
 import 'package:bookshelf_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +22,45 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  
+  late List<Book> favoriteBooks = []; // Инициализация пустым списком
+  bool isLoading = true;
+
   @override
   void initState() {
-    
+    _loadFavorites();
     super.initState();
   }
 
+  void _loadFavorites() async {
+    try {
+      final token = await ApiService().getToken();
+      final BookService service = BookService(token: token!);
+
+      final List<Book> fetchedBooks = await service.fetchFavorites();
+      
+      setState(() {
+        favoriteBooks = fetchedBooks;
+        print(favoriteBooks);
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Ошибка загрузки данных: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void _toogle(Book bookInfo) async {
+    final token = await ApiService().getToken();
+    final BookService service = BookService(token: token!);
+
+    setState(() {
+      bookInfo.hasFavorite = !bookInfo.hasFavorite;
+    });
+    
+    await service.toggleFavorites(bookInfo.bookId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +77,7 @@ class _FavoritePageState extends State<FavoritePage> {
             width: 360,
             iconButton: SizedBox(),
           ),
-          
-          //MY BOOKS TEXT
+          // MY BOOKS TEXT
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
@@ -51,9 +85,8 @@ class _FavoritePageState extends State<FavoritePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-
-          //SCREEN IF NO BOOKS
-          if (Library.cart.isEmpty)
+          // SCREEN IF NO BOOKS
+          if (favoriteBooks.isEmpty)
             Center(
               child: Column(
                 children: [
@@ -130,22 +163,37 @@ class _FavoritePageState extends State<FavoritePage> {
                 ],
               ),
             ),
-
-          //BOOK LIST VREMENNO CART!!!!
-          if (Library.cart.isNotEmpty)
+          if (isLoading)
+            Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryColor,
+              ),
+            ),
+          if (!isLoading && favoriteBooks.isNotEmpty)
             Container(
               height: 550,
               child: ListView.builder(
-                itemCount: Library.cart.length,
+                itemCount: favoriteBooks.length,
                 itemBuilder: (context, index) {
                   return BookListElement(
-                      bookInfo: Library.cart[index],
-                      rightWidget: FavoriteBook());
+                    bookInfo: favoriteBooks[index],
+                    rightWidget: GetBook(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CatalogPage()));
+                      },
+                      onFavorite: () {
+                        _toogle(favoriteBooks[index]);
+                      },
+                      bookInfo: favoriteBooks[index],
+                    ),
+                  );
                 },
               ),
-            )
+            ),
         ],
       ),
     );
   }
 }
+

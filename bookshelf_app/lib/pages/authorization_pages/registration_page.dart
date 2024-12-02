@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:bookshelf_app/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,59 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController numberController = TextEditingController();
   final TextEditingController adressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  Future<void> _registerUser() async {
+    // Проверка заполнения всех полей
+    if (nameController.text.isEmpty ||
+        surnameController.text.isEmpty ||
+        positionController.text.isEmpty ||
+        numberController.text.isEmpty ||
+        adressController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Пожалуйста, заполните все поля!"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Подготовка данных для отправки (исправлены названия ключей)
+    final Map<String, dynamic> registrationData = {
+      "name": nameController.text.trim(),
+      "surname": surnameController.text.trim(),
+      "organization": positionController.text.trim(),
+      "phone": numberController.text.trim(),
+      "place_of_residence": adressController.text.trim(),
+      "password": passwordController.text.trim(),
+    };
+
+    try {
+      // Использование метода register из ApiService
+      await ApiService().register(registrationData);
+
+      // Успешная регистрация
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Регистрация успешна!"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Закрытие всех предыдущих экранов и переход на главный экран
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil("/homepage", (Route<dynamic> route) => false);
+    } catch (error) {
+      // Обработка ошибок
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,13 +185,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: InputField(
-                      controller: passwordController,
-                      inputFormatters: [],
-                      hintText: "Пароль"),
+                    controller: passwordController,
+                    inputFormatters: [],
+                    hintText: "Пароль",
+                    obscure: true,
+                  ),
                 ),
 
-
-                SizedBox(height: 43,),
+                SizedBox(
+                  height: 43,
+                ),
 
                 Container(
                   width: 280,
@@ -154,7 +211,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        //ADD REGISTRATION FUNCTION
+                        _registerUser();
                       },
                       borderRadius: BorderRadius.circular(5),
                       child: Padding(

@@ -2,6 +2,8 @@
 
 import 'package:bookshelf_app/system/app_colors.dart';
 import 'package:bookshelf_app/system/book_model.dart';
+import 'package:bookshelf_app/system/book_service.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:flutter/material.dart';
 
 class BookPage extends StatefulWidget {
@@ -14,6 +16,17 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
+  void _toogle(Book bookInfo) async {
+    final token = await ApiService().getToken();
+    final BookService service = BookService(token: token!);
+
+    setState(() {
+      bookInfo.hasFavorite = !bookInfo.hasFavorite;
+    });
+
+    await service.toggleFavorites(bookInfo.bookId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,18 +69,24 @@ class _BookPageState extends State<BookPage> {
                   color: Colors.yellow[600],
                   size: 32,
                 ),
-                // Text(
-                //   widget.bookInfo.rating.toString(),
-                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                // ),
+                Text(
+                  widget.bookInfo.rating.toString(),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(
                   width: 250,
                 ),
-                Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
-                  size: 32,
-                ),
+                // IconButton(
+                //     onPressed: () {
+                //       _toogle(widget. bookInfo);
+                //     },
+                //     icon: Icon(
+                //       widget.bookInfo.hasFavorite
+                //           ? Icons.favorite
+                //           : Icons.favorite_border,
+                //       size: 32,
+                //       color: Colors.red,
+                //     )),
               ],
             ),
             SizedBox(

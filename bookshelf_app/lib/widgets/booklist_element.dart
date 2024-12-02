@@ -14,6 +14,9 @@ class BookListElement extends StatelessWidget {
       required this.rightWidget,
       super.key});
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     String finalName =
@@ -32,7 +35,7 @@ class BookListElement extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookPage(bookInfo: bookInfo,),
+                      builder: (context) => BookPage(bookInfo: bookInfo),
                     ),
                   );
                 },
@@ -90,10 +93,10 @@ class BookListElement extends StatelessWidget {
                         Icons.star_rounded,
                         color: Colors.yellow[600],
                       ),
-                      // Text(
-                      //   bookInfo.rating.toString(),
-                      //   style: TextStyle(fontSize: 16),
-                      // )
+                      Text(
+                        bookInfo.rating.toString(),
+                        style: TextStyle(fontSize: 16),
+                      )
                     ],
                   )
                 ],

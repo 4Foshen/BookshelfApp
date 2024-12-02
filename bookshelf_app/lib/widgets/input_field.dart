@@ -6,11 +6,13 @@ class InputField extends StatelessWidget {
   final TextEditingController controller;
   final List<TextInputFormatter> inputFormatters;
   final String hintText;
+  final bool obscure;
 
   InputField({
     required this.controller,
     required this.inputFormatters,
     required this.hintText,
+    this.obscure = false,
   });
 
   @override
@@ -27,6 +29,7 @@ class InputField extends StatelessWidget {
       child: TextField(
         controller: controller,
         inputFormatters: inputFormatters,
+        obscureText: obscure,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,

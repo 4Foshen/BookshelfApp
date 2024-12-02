@@ -3,10 +3,10 @@ import 'package:http/http.dart' as http;
 import 'book_model.dart';
 
 class BookService {
-  final String baseUrl;
+  final String baseUrl = "http://77.246.247.118:6677/api";
   final String token; // Добавляем токен в качестве параметра конструктора
 
-  BookService({required this.baseUrl, required this.token});
+  BookService({required this.token});
 
   /// Метод для получения заголовков с токеном
   Map<String, String> _headers() {
@@ -17,10 +17,11 @@ class BookService {
   }
 
   /// Запрос на получение книг с фильтрацией
-  Future<List<Book>> fetchBooks({String? search, String? locale}) async {
+  Future<List<Book>> fetchBooks({String? search, String? locale, String? user}) async {
     final queryParams = {
       if (search != null) 'search': search,
       if (locale != null) 'locale': locale,
+      if (user != null) 'user': user,
     };
 
     final uri = Uri.parse('$baseUrl/books').replace(queryParameters: queryParams);
@@ -49,35 +50,22 @@ class BookService {
   }
 
   /// Добавление книги в избранное
-  Future<void> addToFavorites(int userId, int bookId) async {
+  Future<void> toggleFavorites(int bookId) async {
     final response = await http.post(
       Uri.parse('$baseUrl/favorites'),
       headers: _headers(),
-      body: jsonEncode({'userId': userId, 'bookId': bookId}),
+      body: jsonEncode({'bookId': bookId}),
     );
 
-    if (response.statusCode != 201) {
+    if (response.statusCode != 200) {
       throw Exception('Failed to add book to favorites: ${response.body}');
     }
   }
 
-  /// Удаление книги из избранного
-  Future<void> removeFromFavorites(int userId, int bookId) async {
-    final response = await http.delete(
-      Uri.parse('$baseUrl/favorites'),
-      headers: _headers(),
-      body: jsonEncode({'userId': userId, 'bookId': bookId}),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to remove book from favorites: ${response.body}');
-    }
-  }
-
   /// Получение списка избранных книг пользователя
-  Future<List<Book>> fetchFavorites(int userId) async {
+  Future<List<Book>> fetchFavorites() async {
     final response = await http.get(
-      Uri.parse('$baseUrl/favorites/$userId'),
+      Uri.parse('$baseUrl/favorites'),
       headers: _headers(),
     );
 

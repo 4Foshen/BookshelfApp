@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors, empty_catches
+
 import 'package:bookshelf_app/pages/authorization_pages/registration_page.dart';
 import 'package:bookshelf_app/pages/main_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:bookshelf_app/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,10 +19,49 @@ class _SettingsPageState extends State<SettingsPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController positionController = TextEditingController();
-  final TextEditingController numberController = TextEditingController();
   final TextEditingController adressController = TextEditingController();
 
   bool _isSwitched = false;
+
+  Future<void> _updateData() async {
+    final Map<String, dynamic> updateData = {};
+    final fields = {
+      "name": nameController.text.trim(),
+      "surname": surnameController.text.trim(),
+      "organization": positionController.text.trim(),
+      "place_of_residence": adressController.text.trim(),
+    };
+
+    fields.forEach((key, value) {
+      if (value.isNotEmpty) {
+        updateData[key] = value;
+      }
+    });
+
+    try {
+      await ApiService().updateData(updateData);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Регистрация успешна!"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => MainPage()), // Укажите вашу основную страницу
+        (route) => false, // Удаляет все предыдущие маршруты
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Произошла ошибка."),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +91,8 @@ class _SettingsPageState extends State<SettingsPage> {
               radius: 64,
               backgroundColor: Colors.blue[100],
               child: Text(
-                //PICK INITIAL OF NAME AND SURNAME
-                'КД',
+                (UserData.currentUser?.profile.name[0] ?? '') +
+                    (UserData.currentUser?.profile.surname[0] ?? ''),
                 style: TextStyle(
                   fontSize: 32,
                   color: Colors.black,
@@ -68,32 +110,32 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Icon(Icons.confirmation_num_outlined, size: 24),
                 SizedBox(width: 4),
-                Text('067123'),
+                Text(UserData.currentUser?.ticket ?? ""),
               ],
             ),
 
-            //SWITCH
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Уведомления",
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(
-                  width: 150,
-                ),
-                Switch(
-                  value: _isSwitched,
-                  activeColor: Colors.green,
-                  onChanged: (value) {
-                    setState(() {
-                      _isSwitched = value;
-                    });
-                  },
-                ),
-              ],
-            ),
+            //SWITCH EDIT
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       "Уведомления",
+            //       style: TextStyle(fontSize: 18),
+            //     ),
+            //     SizedBox(
+            //       width: 150,
+            //     ),
+            //     Switch(
+            //       value: _isSwitched,
+            //       activeColor: Colors.green,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           _isSwitched = value;
+            //         });
+            //       },
+            //     ),
+            //   ],
+            // ),
 
             //INPUT FIELDS
             Padding(
@@ -105,7 +147,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       RegExp(r'[a-zA-Zа-яА-Я]'),
                     )
                   ],
-                  hintText: "Данил"),
+                  hintText: UserData.currentUser?.profile.name ?? ""),
             ),
 
             Padding(
@@ -117,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       RegExp(r'[a-zA-Zа-яА-Я]'),
                     )
                   ],
-                  hintText: "Калайда"),
+                  hintText: UserData.currentUser?.profile.surname ?? ""),
             ),
 
             Padding(
@@ -125,15 +167,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: InputField(
                   controller: positionController,
                   inputFormatters: [],
-                  hintText: "MangoDevelopment"),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: InputField(
-                  controller: numberController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  hintText: "+77027813442"),
+                  hintText: UserData.currentUser?.profile.organization ?? ""),
             ),
 
             Padding(
@@ -141,11 +175,13 @@ class _SettingsPageState extends State<SettingsPage> {
               child: InputField(
                   controller: adressController,
                   inputFormatters: [],
-                  hintText: "Мясокомбинат"),
+                  hintText:
+                      UserData.currentUser?.profile.placeOfResidence ?? ""),
             ),
 
-
-            SizedBox(height: 40,),
+            SizedBox(
+              height: 40,
+            ),
             //BUTTON
             Container(
               width: 280,
@@ -162,7 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    //ADD CHANGE DATA LOGIC
+                    _updateData();
                   },
                   borderRadius: BorderRadius.circular(5),
                   child: Padding(

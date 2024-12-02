@@ -24,18 +24,6 @@ class _DeleteBookState extends State<DeleteBook> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         IconButton(
-            onPressed: () {
-              
-            },
-            icon: Icon(
-              Icons.favorite_border,
-              color: Colors.red,
-              size: 32,
-            )),
-        SizedBox(
-          height: 30,
-        ),
-        IconButton(
             onPressed: widget.onPressed,
             icon: Icon(
               Icons.delete_outlined,

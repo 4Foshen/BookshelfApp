@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
+import 'package:bookshelf_app/pages/art/my_art.dart';
+import 'package:bookshelf_app/pages/authorization_pages/welcome_page.dart';
 import 'package:bookshelf_app/pages/books/favorite_page.dart';
 import 'package:bookshelf_app/pages/books/mybook_page.dart';
 import 'package:bookshelf_app/pages/profile/my_clubs.dart';
 import 'package:bookshelf_app/pages/profile/my_events.dart';
 import 'package:bookshelf_app/pages/profile/settings_page.dart';
 import 'package:bookshelf_app/system/app_colors.dart';
+import 'package:bookshelf_app/system/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,9 +33,16 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: AppColors.backgroundColor,
         actions: [
           IconButton(
-            icon: Icon(Icons.edit_outlined, size: 28,),
+            icon: Icon(
+              Icons.edit_outlined,
+              size: 28,
+            ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder:(context) => SettingsPage(), ));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsPage(),
+                  ));
             },
           ),
         ],
@@ -56,8 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   radius: 32,
                   backgroundColor: Colors.blue[100],
                   child: Text(
-                    //PICK INITIAL OF NAME AND SURNAME
-                    'КД',
+                    (UserData.currentUser?.profile.name[0] ?? 'Н') +
+                        (UserData.currentUser?.profile.surname[0] ?? 'П'),
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.black,
@@ -70,7 +80,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Калайда Данил',
+                      (UserData.currentUser?.profile.name ?? "Неизвестный") +
+                          " " +
+                          (UserData.currentUser?.profile.surname ??
+                              "пользователь"),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -81,14 +94,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Icon(Icons.confirmation_num_outlined, size: 20),
                         SizedBox(width: 4),
-                        Text('067123'),
+                        Text(UserData.currentUser?.ticket ?? ""),
                       ],
                     ),
                     Row(
                       children: [
                         Icon(Icons.phone_outlined, size: 20),
                         SizedBox(width: 4),
-                        Text('8 707 123 65 65'),
+                        Text(UserData.currentUser?.phone ?? ""),
                       ],
                     ),
                   ],
@@ -98,58 +111,78 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 16),
 
             //CHANGE LANGUAGE
-            ListTile(
-              title: Text('Язык приложения', style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),),
-              subtitle: Text('Русский'),
-              trailing: Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // Переход к настройкам языка
-              },
-            ),
+            // ListTile(
+            //   title: Text('Язык приложения', style: TextStyle(
+            //     fontWeight: FontWeight.bold,
+            //   ),),
+            //   subtitle: Text('Русский'),
+            //   trailing: Icon(Icons.arrow_forward_ios, size: 16),
+            //   onTap: () {
+            //     // Переход к настройкам языка
+            //   },
+            // ),
             SizedBox(height: 8),
 
             _buildMenuItem(
-              icon: Icon(Icons.favorite_outline, color: AppColors.secondaryColor,),
+              icon: Icon(
+                Icons.favorite_outline,
+                color: AppColors.secondaryColor,
+              ),
               text: 'Избранное',
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritePage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoritePage()));
               },
             ),
             _buildMenuItem(
               icon: SvgPicture.asset('assets/svg/books2.svg'),
               text: 'Мои книги',
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MyBookPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyBookPage()));
               },
             ),
             _buildMenuItem(
               icon: SvgPicture.asset('assets/svg/events.svg'),
               text: 'Мои мероприятия',
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MyEvents()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
             _buildMenuItem(
               icon: SvgPicture.asset('assets/svg/clubs.svg'),
               text: 'Мои клубы',
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MyClubs()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyClubs()));
               },
             ),
             _buildMenuItem(
-              icon: SvgPicture.asset('assets/svg/paint.svg', height: 28,),
+              icon: SvgPicture.asset(
+                'assets/svg/paint.svg',
+                height: 28,
+              ),
               text: 'Мое творчество',
               onTap: () {
-                // Действие для творчества
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyArt()));
               },
             ),
             _buildMenuItem(
-              icon: Icon(Icons.exit_to_app_rounded, color: Colors.red, size: 26,),
+              icon: Icon(
+                Icons.exit_to_app_rounded,
+                color: Colors.red,
+                size: 26,
+              ),
               text: 'Выйти',
-              onTap: () {
-                // Exit account, + add closing all screens
+              onTap: () async {
+                await ApiService().logout();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomePage()),
+                  (Route<dynamic> route) => false,
+                );
               },
             ),
           ],
@@ -165,10 +198,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }) {
     return ListTile(
       leading: icon,
-      title: Text(text, style: TextStyle(
-        color: Color(0xff424242),
-        fontWeight: FontWeight.bold,
-      ),),
+      title: Text(
+        text,
+        style: TextStyle(
+          color: Color(0xff424242),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       onTap: onTap,
     );
   }
