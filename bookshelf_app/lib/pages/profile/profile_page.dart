@@ -150,14 +150,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     MaterialPageRoute(builder: (context) => MyEvents()));
               },
             ),
-            _buildMenuItem(
-              icon: SvgPicture.asset('assets/svg/clubs.svg'),
-              text: 'Мои клубы',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyClubs()));
-              },
-            ),
+            // _buildMenuItem(
+            //   icon: SvgPicture.asset('assets/svg/clubs.svg'),
+            //   text: 'Мои клубы',
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => MyClubs()));
+            //   },
+            // ),
             _buildMenuItem(
               icon: SvgPicture.asset(
                 'assets/svg/paint.svg',

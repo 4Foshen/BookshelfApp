@@ -139,17 +139,17 @@ class _HomePageState extends State<HomePage> {
                         ));
                   },
                 ),
-                IconContainer(
-                  assetPath: "assets/svg/clubs.svg",
-                  text: "Клубы",
-                  onButtonPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ClubListPage(),
-                        ));
-                  },
-                ),
+                // IconContainer(
+                //   assetPath: "assets/svg/clubs.svg",
+                //   text: "Клубы",
+                //   onButtonPressed: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => ClubListPage(),
+                //         ));
+                //   },
+                // ),
                 IconContainer(
                   assetPath: "assets/svg/paint.svg",
                   text: "Творчество",
